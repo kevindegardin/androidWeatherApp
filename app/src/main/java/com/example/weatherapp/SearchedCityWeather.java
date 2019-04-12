@@ -1,9 +1,11 @@
 package com.example.weatherapp;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.databinding.ActivitySearchedCityWeatherBinding;
@@ -16,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchedCityWeather extends AppCompatActivity {
 
-    static final String city = "Arras";
+    private String city = "";
     static final String BASE_URL = "https://api.openweathermap.org/data/2.5/";
     static final String API_ID = "e7635207e7a83be8fa9925c5fc57402a";
 
@@ -26,6 +28,11 @@ public class SearchedCityWeather extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searched_city_weather);
+
+        Intent i = getIntent();
+        city = i.getStringExtra("TypedCity");
+
+        Log.d("onCreate: ", city);
 
         // Setting binding to view
         binding = DataBindingUtil.setContentView(this, R.layout.activity_searched_city_weather);

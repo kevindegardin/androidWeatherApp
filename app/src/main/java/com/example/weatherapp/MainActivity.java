@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             switch (v.getId()) {
 
                 case R.id.validSearch:
-                    startActivity(new Intent(MainActivity.this, SearchedCityWeather.class));
+                    Intent intent = new Intent(MainActivity.this, SearchedCityWeather.class);
+                    intent.putExtra("TypedCity", binding.searchedCity.getText().toString());
+                    startActivity(intent);
+                    // startActivity(new Intent(MainActivity.this, SearchedCityWeather.class));
                     break;
             }
         }
