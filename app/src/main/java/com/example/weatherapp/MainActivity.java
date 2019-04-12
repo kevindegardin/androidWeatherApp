@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ViewDebug;
 import android.widget.TextView;
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
@@ -99,9 +100,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     WeatherResponse weatherResponse = response.body();
                     assert weatherResponse != null;
 
-                    String stringBuilder = "Country: " +
-                            weatherResponse.sys.country +
-                            "\n" +
+                    String city = weatherResponse.name;
+
+                    Integer temperature = Math.round(weatherResponse.main.temp) - 273;
+
+                    String detailledInformations =
                             "Temperature: " +
                             weatherResponse.main.temp +
                             "\n" +
@@ -111,19 +114,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             "Temperature(Max): " +
                             weatherResponse.main.temp_max +
                             "\n" +
-                            "Humidity: " +
+                            "Humidité: " +
                             weatherResponse.main.humidity +
                             "\n" +
-                            "Pressure: " +
+                            "Pression: " +
                             weatherResponse.main.pressure;
 
-                    binding.textView.setText(stringBuilder);
+                    binding.city.setText(city);
+                    binding.temperature.setText(temperature + "°");
+                    binding.detailledInformations.setText(detailledInformations);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
-                binding.textView.setText("Test2");
+                binding.detailledInformations.setText("Échec de la récupération des informations.");
             }
 
         });
